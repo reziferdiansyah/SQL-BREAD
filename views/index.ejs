@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>sqlite3-bread</title>
+</head>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+  crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+  .ID {
+  border:1px solid #E8EBED;
+  width: 4%;
+  }
+  .String {
+  border:1px solid #E8EBED;
+  }
+  .Integer {
+  border:1px solid #E8EBED;
+  }
+  .Float {
+  border:1px solid #E8EBED;
+  }
+  .Date {
+  border:1px solid #E8EBED;
+  }
+  .Boolean {
+  border:1px solid #E8EBED;
+  }
+  .Actions {
+  border:1px solid #E8EBED;
+  width: 25%;
+  }  
+  </style>
+
+<body>
+  <div class="container">
+
+    <h1>BREAD(Browse,Read,Edit,Add,Delete)</h1>
+    <h2>Filters</h2>
+
+    <form action="/" method="get">
+      <input type="hidden" name="page" value="1" />
+      <div class="form-group row">
+        <label class="col-2 col-form-label">
+          <input class="form-check-input" type="checkbox" name="checkid" <%=query.checkid ? ' checked' : '' ; %>>ID
+        </label>
+        <div class="col-10">
+          <input class="form-control" type="text" placeholder="ID" id="example-text-input" name="formid" value="<%= query.formid %>">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">
+          <input class="form-check-input" type="checkbox" name="checkstring" <%=query.checkstring ? ' checked' : '' ; %>>String
+        </label>
+        <div class="col-10">
+          <input class="form-control" type="text" placeholder="String" id="example-text-input" name="formstring" value="<%= query.formstring %>">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">
+          <input class="form-check-input" type="checkbox" name="checkinteger" <%=query.checkinteger ? ' checked' : '' ;
+            %>>Integer
+        </label>
+        <div class="col-10">
+          <input class="form-control" type="search" placeholder="Integer" id="example-search-input" name="forminteger"
+            value="<%= query.forminteger %>">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">
+          <input class="form-check-input" type="checkbox" name="checkfloat" <%=query.checkfloat ? ' checked' : '' ; %>>Float
+        </label>
+        <div class="col-10">
+          <input class="form-control" type="text" placeholder="Float" id="example-email-input" name="formfloat" value="<%= query.formfloat %>">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">
+          <input class="form-check-input" type="checkbox" name="checkdate" <%=query.checkdate ? ' checked' : '' ; %>>Date
+        </label>
+        <div class="col-10">
+          <input class="form-control" type="text" placeholder="start date" id="example-email-input" name="formdate"
+            value="<%= query.formdate %>">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label"></label>
+        <div class="col-10">
+          <input class="form-control" type="text" placeholder="end date" id="example-email-input" name="formenddate"
+            value="<%= query.formenddate %>">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">
+          <input class="form-check-input" type="checkbox" name="checkboolean" <%=query.checkboolean ? ' checked' : '' ;
+            %>>Boolean
+        </label>
+        <div class="col-10">
+          <select class="custom-select" name="boolean">
+            <option value="">Choose the boolean ...</option>
+            <option value="true" <%=query.boolean=='true' ? 'selected' : '' ; %>>True</option>
+            <option value="false" <%=query.boolean=='false' ? 'selected' : '' ; %>>False</option>
+          </select>
+        </div>
+      </div>
+      <div><br></div>
+      <button type="submit" class="btn btn-primary">search</button>
+      <a href="/" class="btn btn-warning">reset</a>
+      <div><br></div>
+    </form>
+
+
+    <table class="table table-striped" action="/" method="get">
+      <thead>
+        <tr>
+          <th scope="col-sm-10" class="ID">ID</th>
+          <th scope="col-sm-10" class="String">String</th>
+          <th scope="col-sm-10" class="Integer">Integer</th>
+          <th scope="col-sm-10" class="Float">Float</th>
+          <th scope="col-sm-10" clas="Date">Date</th>
+          <th scope="col-sm-10" class="Boolean">Boolean</th>
+          <th scope="col-sm-10" class="Actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% rows.forEach((item)=>{%>
+        <tr>
+          <th scope="row">
+            <%= item.id %>
+          </th>
+          <td class="String">
+            <%= item.string %>
+          </td>
+          <td class="Integer">
+            <%= item.integer %>
+          </td>
+          <td class="Float">
+            <%= item.float %>
+          </td>
+          <td class="Date">
+            <%= item.date %>
+          </td>
+          <td class="Boolean">
+            <%= item.boolean == 'true' ? true : false %>
+          </td>
+          <td class="Actions"><a href="edit/<%= item.id %>" button type="submit" class="btn btn-primary">Edit</button>
+              <a href="delete/<%= item.id %>" class="btn btn-danger" style="margin:5px;">Delete</a></td>
+        </tr>
+        <% }); %>
+    </table>
+
+    <nav aria-label="...">
+      <ul class="pagination">
+        <li class="page-item<%= page == 1 ? ' disabled' : ''; %>">
+          <a class="page-link" href="/?page=<%= parseInt(page) - 1 %>" tabindex="-1">Previous</a>
+        </li>
+        <% for(let i = 1; i <= pages; i++){ %>
+        <li class="page-item<%= i == page ? ' active' : ''; %>">
+          <a class="page-link" href="<%= url.replace(`page=${page}`, `page=${i}`); %>">
+            <%= i %></a>
+        </li>
+        <% } %>
+        <li class="page-item<%= page == pages ? ' disabled' : ''; %>">
+          <a class="page-link" href="/?page=<%= parseInt(page) + 1 %>">Next</a>
+        </li>
+      </ul>
+    </nav>
+
+    <a href="add" button type="submit" class="btn btn-primary">ADD</a>
+  </div>
+</body>
+
+</html>

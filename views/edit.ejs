@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+</head>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+
+<body>
+    <div class="container">
+        <form action="/edit/<%= id %>" method="POST">
+            <h1>Edit Data</h1>
+
+            <div class="
+                        form-group row">
+                <label for="example-text-input" class="col-2 col-form-label">String</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" placeholder="Super sekali" id="example-text-input" name="string"
+                        value="<%= item.string %>">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-search-input" class="col-2 col-form-label">Integer</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="0" id="example-search-input" name="integer"
+                        value="<%= item.integer %>">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-email-input" class="col-2 col-form-label">Float</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="1.45" id="example-email-input" name="float"
+                        value="<%= item.float %>">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                <div class="col-10">
+                    <input class="form-control" type="date" id="example-date-input" name="date" value="<%= item.date %>">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-number-input" class="col-2 col-form-label">Boolean</label>
+                <div class="col-10">
+                    <select class="custom-select" name="boolean" value="<%= item.boolean %>" required>
+                        <option value="">Choose the boolean ...</option>
+                        <option value="true" <%=item.boolean ?'selected':''%>>True</option>
+                        <option value="false" <%=!item.boolean ?'selected':''%>>False</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="/" class="btn btn-warning">BACK</a>
+        </form>
+        </container>
+</body>
+
+</html>
